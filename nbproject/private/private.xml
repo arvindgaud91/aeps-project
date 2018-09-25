@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/C:/xampp/htdocs/aeps/dip-app/app/views/wallets/credit-request.blade.php</file>
+            <file>file:/C:/xampp/htdocs/aeps/dip-app/app/routes/user.php</file>
+            <file>file:/C:/xampp/htdocs/aeps/dip-app/app/views/transactions/transaction.blade.php</file>
+            <file>file:/C:/xampp/htdocs/aeps/dip-app/app/controllers/WalletsController.php</file>
+            <file>file:/C:/xampp/htdocs/aeps/dip-app/jobs/MATM.php</file>
+            <file>file:/C:/xampp/htdocs/aeps/dip-app/app/routes.php</file>
+            <file>file:/C:/xampp/htdocs/aeps/dip-app/app/controllers/TransactionsController.php</file>
+            <file>file:/C:/xampp/htdocs/aeps/dip-app/app/routes/transaction.php</file>
+            <file>file:/C:/xampp/htdocs/aeps/dip-app/app/Acme/Helper/Rabbit.php</file>
+        </group>
+    </open-files>
+</project-private>

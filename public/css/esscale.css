@@ -1,0 +1,73 @@
+.multiselect-form-control button {
+	width: 100%;
+}
+p.err-mark {
+	color: #F2596D;
+}
+img.err-mark {
+	border: 1px #F2596D solid;
+}
+div.err-mark button {
+	border: 1px solid red;
+}
+.ng-submitted .err.ng-invalid {
+	border: 1px solid red;
+}
+.fingerImg {
+	border: 1px #000 solid;
+	height: 250px;
+	width: 100%;
+	border-radius: 4px;
+}
+.dashboard-views .seperator {
+	border-right: 1px solid #ccc;
+	border-radius: 0;
+}
+.dashboard-views .widget.widget-tile .data-info {
+	text-align: left;
+}
+.services-wrapper.splash-container .panel .panel-body {
+	padding: 20px 10px 15px;
+}
+.services-wrapper.splash-container .panel .panel-heading {
+	padding-top: 0px;
+}
+.services-wrapper.splash-container .panel .btn {
+	padding: 5px 10px;
+	font-size: 16px;
+	border-radius: 0px 0px 5px 5px;
+}
+.services-wrapper .card {
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+	transition: 0.3s;
+	border-radius: 5px;
+}
+.services-wrapper .card:hover {
+	box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
+.services-wrapper img {
+	border-radius: 5px 5px 0 0;
+}
+.services-wrapper .container {
+	padding: 2px 16px;
+}
+.panel-heading, .panel-heading .title{font-size: 15px;}
+table.dataTable.no-footer {
+    border-bottom: 1px solid #ddd !important;
+} 
+.err-mark:before {
+    content: "\f071";
+    font-family: 'FontAwesome';
+    margin: 0 4px;
+}
+@media (max-width:480px) {
+	.be-fixed-sidebar {
+		padding-top: 0;
+	}
+	.be-left-sidebar {
+		display: none;
+	}
+	.be-top-header {
+		display: none;
+	}
+}
