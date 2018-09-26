@@ -42,10 +42,10 @@ public function getauth()
      //dd($bankLoginResponse);
 if($bankLoginResponse->status == 1)
 { 
+	
+  $datas=array('phone_no'=>Input::get('phone_no'),'password'=>Input::get('password'),'captcha'=>Input::get('captcha'));
 
-  $datas=array('phone_no'=>'9999900000','password'=>'123456','captcha'=>Input::get('captcha'));
-
-          $user = Auth::validate($datas);
+    $user = Auth::validate($datas);   
     //$user = Auth::validate(Input::all());
     if (! $user)
     {
