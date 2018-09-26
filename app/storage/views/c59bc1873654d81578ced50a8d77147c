@@ -1,0 +1,247 @@
+<?php use Acme\Auth\Auth; 
+$user = Auth::user();
+
+?>
+
+<?php $__env->startSection('content'); ?>
+
+<div ng-controller="bcAgentuserCtrl"  class="head-weight">
+  <div class="row">
+    <div class="col-md-12">
+       <div class="panel panel-default">
+        <!-- Page Title -->
+        <div class="panel-heading">
+          <div class="row">
+            <div class="col-sm-4">
+              Master <span class="panel-subtitle">Payment Details Form</span>
+            </div>
+            <div class="col-sm-8">
+            <div class="pull-right">
+                <strong>Inventory with Device : <?php echo $user->vendor->inventory_with_device; ?> ID's</strong> | <strong>Inventory without Device : <?php echo $user->vendor->inventory_without_device; ?> ID's</strong>
+            </div>
+          </div>
+            <div class="clearfix"></div>
+          </div>
+        </div>
+        <!-- /Page Title --> 
+        <!-- Page Content -->
+        <div class="tab-container ">
+          <div class="tab-content1 ">
+             <div class="panel-default panel-border-color panel-border-color-primary">
+                 <div class="panel-body">
+                     <form name="distPaymentFrm" method="post" style="border-radius: 0px;" class="form-horizontal group-border-dashed" ng-submit="saveProfile(user)" novalidate>
+                      <div class="row">
+                        <div class="col-sm-3">
+                            <div class="form-groups">
+                              <label class="control-label" ><strong>ID Cost <font color="red"> *</font></strong></label>
+                              <input style="height: 40px;" type="text" ng-model="id_cost" name="id_cost"  class="form-control" required="">
+                              <p ng-show="distPaymentFrm.$submitted && distPaymentFrm.id_cost.$invalid" class="err-mark">Please enter the ID Cost.</p>
+                            </div>
+                        </div>
+                        <!-- <div class="col-sm-3">
+                            <div class="form-groups">
+                              <label class="control-label" ><strong>Device Type <font color="red"> *</font></strong></label>
+                              <select  style="height: 40px;" ng-model="device_type" class="form-control err" id="device_type" name="device_type" required="">
+                                <option value="">Select Option</option>
+                                <option value="0">With Device</option>
+                                <option value="1">Without Device</option>
+                              </select>
+                              <p ng-show="distPaymentFrm.$submitted && distPaymentFrm.device_type.$invalid" class="err-mark">Please enter the Mode of Transfer.</p>
+                            </div>
+                        </div> -->
+                        <div class="col-sm-3">
+                            <div class="form-groups">
+                              <label class="control-label" ><strong>Total Amount <font color="red"> *</font></strong></label>
+                              <input style="height: 40px;" type="text" name="no_of_agent_ids" ng-model="no_of_agent_ids" ng-change="id_count()" class="form-control" required="">
+                              <p ng-show="distPaymentFrm.$submitted && distPaymentFrm.no_of_agent_ids.$invalid" class="err-mark">Please enter the Amount.</p>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-groups">
+                              <label class="control-label" ><strong>Total ID's <font color="red"> *</font></strong></label>
+                              <input style="height: 40px;"  type="text" value="{{amount | number:0}}" name="amount"  class="form-control" disabled="">
+                              <p ng-show="distPaymentFrm.$submitted && distPaymentFrm.amount.$invalid" class="err-mark">Please enter the Total ID'<s></s>.</p>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-groups">
+                              <label class="control-label" ><strong>No of Devices </strong></label>
+                              <input style="height: 40px;" type="text" ng-model="id_with_device" name="id_with_device" ng-change="amount_count()" class="form-control" >
+                            </div>
+                        </div>
+                        
+                        <div class="clearfix"></div>
+                        <div class="col-sm-3">
+                            <div class="form-groups">
+                              <label class="control-label" ><strong>Devices Amount </strong></label>
+                              <input style="height: 40px;" type="text" name="inventory_amount" ng-model="inventory_amount" class="form-control" disabled="">
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-groups">
+                              <label class="control-label" ><strong>Final Amounts</strong></label>
+                              <input style="height: 40px;"  type="text" value="{{inventory_final_amounts | number:0}}" name="inventory_final_amounts"  class="form-control" disabled="">
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-groups">
+                              <label class="control-label" ><strong>Mode of Transfer <font color="red"> *</font></strong></label>
+                              <select  style="height: 40px;" ng-model="mode_of_transfer" class="form-control err" id="mode_of_transfer" name="mode_of_transfer" required="">
+                                <option value="">Select Option</option>
+                                <option value="0">IMPS</option>
+                                <option value="1">NEFT</option>
+                                <option value="2">Cheque / DD</option>
+                                <option value="3">Netbanking</option>
+                              </select>
+                              <p ng-show="distPaymentFrm.$submitted && distPaymentFrm.mode_of_transfer.$invalid" class="err-mark">Please enter the Mode of Transfer.</p>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                          <div class="form-group">
+                            <label class="control-label" >Date of Deposit <font color="red"> *</font></label>
+                            <div class="input-group date" >
+                              <input style="height: 40px;" type="text" class="form-control ng-pristine ng-invalid ng-invalid-required ng-touched" placeholder="Enter Date of Deposit" ng-model="date_of_deposit" name="date_of_deposit" id="datetimepicker6" ng-change="value=date_of_deposit" required="">
+                              <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                              </span>
+                            </div>
+                            <p ng-show="distPaymentFrm.$submitted && distPaymentFrm.date_of_deposit.$invalid" class="err-mark">Please enter Date of Deposit.</p>
+                          </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="col-sm-3">
+                            <div class="form-groups">
+                              <label class="control-label" ><strong>Ref No. / Remarks <font color="red"> *</font></strong></label>
+                              <input style="height: 40px;" type="text" ng-model="ref_no" name="ref_no" class="form-control" required>
+                              <p ng-show="distPaymentFrm.$submitted && distPaymentFrm.ref_no.$invalid" class="err-mark">Please enter the Ref No. / Remarks.</p>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                          <button type="submit" class="btn btn-primary btn-lg" ng-disabled="isDisabled" ng-click="" style="margin-top:25px;width: 100%;height: 40px; line-height: 20px;">Submit</button>
+                        </div>
+                        
+                      </div>                 
+                     </form>
+                    <!-- /Form -->
+                   </div>
+                 </div>
+             </div>
+          </div>
+        </div>
+        <!-- /Page Content -->
+       </div>
+    </div>
+  </div>
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('javascript'); ?>
+<script>
+
+var distAgents = <?php echo json_encode($distAgents); ?>;
+var dod_onchange;
+angular.module('DIPApp')
+
+  .controller('bcAgentuserCtrl', ['$scope', '$http','Upload','fileUpload', function ($scope, $http,Upload,fileUpload) {
+  window.s = $scope
+
+      $scope.distAgents = distAgents
+
+      //$scope.id_cost = '750';
+
+      $scope.saveProfile=saveProfile;
+      $scope.id_count=id_count;
+      $scope.amount_count=amount_count;
+      $scope.isDisabled = false;  
+      $scope.date_of_deposit=dod_onchange
+       $scope.assign = function() {
+        $scope.modelValue = $('#datetimepicker6').val();
+      }
+      var total_amounts = ($scope.no_of_agent_ids / $scope.id_cost);
+      console.log(total_amounts);
+      var final_amounts;
+      function id_count(){
+        final_amounts = ($scope.no_of_agent_ids / $scope.id_cost);
+        $id_count = parseInt($scope.no_of_agent_ids);
+        console.log($id_count);
+        $scope.amount = ($id_count / $scope.id_cost);
+         $scope.inventory_final_amounts = (parseInt($scope.no_of_agent_ids)) 
+      }
+
+      function amount_count(){
+
+        $scope.inventory_amount = (parseInt($scope.id_with_device) * 2500)
+
+        $scope.inventory_final_amounts = (parseInt($scope.no_of_agent_ids) + parseInt($scope.inventory_amount))
+      }
+
+      
+      
+     // console.log($scope.inventory_amount);
+      //$scope.total_ids = ($scope.amount / $scope.id_cost);
+      $scope.isDisabled = false;
+      function saveProfile (vendorObj) 
+      {
+          $scope.id_with_device = $scope.id_with_device?$scope.id_with_device:0
+          $scope.date_of_deposit=dod_onchange
+            $scope.isDisabled = true;
+            var filter1={
+                 id_cost:$scope.id_cost,
+                 id_with_device : $scope.id_with_device,
+                 amount:$scope.inventory_final_amounts,
+                 device_type:$scope.device_type,
+                 ref_no:$scope.ref_no,
+                 date_of_deposit:dod_onchange,
+                 no_of_agent_ids:final_amounts,
+                 mode_of_transfer:$scope.mode_of_transfer
+            }
+            $scope.isDisabled = true;
+            console.log(filter1)
+
+             var saveProfile=Upload.upload({
+
+              url:'/super-dist/'+<?php echo Auth::user()->id; ?>+'/payment/update',
+              method:"post",
+              data:filter1,
+             });
+
+             saveProfile.then(function(data)
+             {
+                console.log(data);
+                  toastr.success('Payment Details Form Updated Successfully!!.')
+                  setTimeout(function () {
+                        //location.reload();
+                        location.href = "/master-payment-details-report";
+                    }, 1500)
+            },
+            fail );
+      }
+
+      function fail (err) {
+          console.log(err.status)
+          if(err.status==402){
+            sweetAlert('Error', 'Total ID is not greater than inventory id!', 'error')
+            $scope.isDisabled = false;
+          }else if(err.status==401){
+            sweetAlert('Error', 'Reference Number Already Exists!', 'error')
+            $scope.isDisabled = false;
+          }else{
+            sweetAlert('Error', 'Something Is Wrong.', 'error')
+          }
+      }
+  
+}])
+</script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $('#datetimepicker6').datetimepicker({ format: 'YYYY-MM-DD',maxDate:new Date()});
+        $("#datetimepicker6").on("dp.change", function (e) { 
+      //alert($("#datetimepicker6").val());
+      dod_onchange=$("#datetimepicker6").val();
+    });
+    });
+</script>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

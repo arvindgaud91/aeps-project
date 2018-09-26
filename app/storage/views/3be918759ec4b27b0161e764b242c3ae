@@ -1,0 +1,127 @@
+<?php
+use Acme\Auth\Auth;
+use Acme\Helper\GateKeeper;
+$user = Auth::user();
+?>
+
+<!-- Navigation -->
+
+    <div id="navigation">
+        <div class="profile-picture">
+            <a ng-href="/users/{{ activeUserProfile.id }}/profile">
+                <?php
+                    if($user->vendor->user_profile_url == NULL){
+                    ?>
+                    <img height="76px" src="/images/profile-pic.jpg" class="img-circle m-b" alt="logo">
+                    <?php
+                    }else{
+                    ?>
+                    <img height="76px" src="/upload/profile/<?php echo $user->vendor->user_profile_url; ?>" class="img-circle m-b" alt="logo">
+                    <?php
+                    }
+                ?>
+            </a>
+
+            <div class="stats-label text-color">
+                <span class="font-extra-bold font-uppercase"><?php echo $user->name; ?></span>
+
+                <div class="dropdown">
+                    <a class="dropdown-toggle" href="#" data-toggle="dropdown">
+                        <small class="text-muted">
+                            <?php if( Auth::user()->isAgent()): ?>
+                                Agent
+                            <?php endif; ?>
+                            <?php if( Auth::user()->isDistributor()): ?>
+                                Distributor
+                            <?php endif; ?>
+                            <?php if( Auth::user()->isSuperDistributor()): ?>
+                                Super Distributor
+                            <?php endif; ?>
+                            <?php if( Auth::user()->isSalesExecutive()): ?>
+                                Sales Executive
+                            <?php endif; ?>
+                            <?php if( Auth::user()->isAreaSalesOfficer()): ?>
+                                Area Sales Officer
+                            <?php endif; ?>
+                            <?php if( Auth::user()->isAreaSalesManager()): ?>
+                                Area Sales Manager
+                            <?php endif; ?>
+                            <?php if( Auth::user()->isClusterHead()): ?>
+                                Cluster Head
+                            <?php endif; ?>
+                            <?php if( Auth::user()->isStateHead()): ?>
+                                State Head
+                            <?php endif; ?>
+                            <?php if( Auth::user()->isRegionalHead()): ?>
+                                Regional Head
+                            <?php endif; ?>
+                            <?php if( Auth::user()->isWhiteLabelAdmin()): ?>
+                                White Label Admin
+                            <?php endif; ?>
+                            <?php if( Auth::user()->isChannelPartner()): ?>
+                                Channel Partner
+                            <?php endif; ?>
+                            <b class="caret"></b>
+                        </small>
+                    </a>
+                    <ul class="dropdown-menu animated flipInX m-t-xs">
+                        <!-- <li><a href="contacts.html">Contacts</a></li> -->
+                        <!-- <li><a ng-href="/users/{{ activeUserProfile.id }}/profile">Profile</a></li> -->
+                        <!-- <li><a href="analytics.html">Analytics</a></li> -->
+                        <li class="divider"></li>
+                        <li><a href="/logout">Logout</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-extra-bold m-b-xs">
+                        <a href="#">
+                            <!-- <i class="icon mdi mdi-balance-wallet"></i><span>&nbsp;-->
+                            <span><i class="fa fa-inr" aria-hidden="true"></i> <?php echo number_format($user->vendor->balance, 2); ?></span>
+                        </a>
+                    </h4>
+
+                </div>
+            </div>
+        </div>
+        <ul class="nav" id="side-menu">
+            <li>
+                <a href="/IRCTCDashboard"> <span class="nav-label">Dashboard</span></a>
+            </li>
+<!-- 
+            <?php if(Auth::user()->vendorDetails->type == 3 || Auth::user()->vendorDetails->type == 2): ?>
+                <?php if($user->vendor->inventory_access == 1): ?>
+                    <li class="single">
+                        <a href="/super-dist-payment-details"><span class="nav-label">Payments Form</span></a>
+                    </li>
+                <?php endif; ?>
+            <?php endif; ?>
+            <?php if(Auth::user()->vendorDetails->type == 14): ?>
+                <li>
+                    <a href="/master-super-distributor"> <span class="nav-label">MY SUPER DISTRIBUTORS</span> </a>
+                </li>
+                <?php if($user->vendor->inventory_access == 1): ?>
+                    <li class="single">
+                        <a href="/master-payment-details"><span class="nav-label">Master Payments</span></a>
+                    </li>
+                <?php endif; ?>
+            <?php endif; ?>
+
+ -->
+            <li class="">
+                <a href="#"><span class="nav-label">IRCTC</span><span class="fa fa-train pull-right" ></span> </a>
+                <ul class="nav nav-second-level">
+                    <li><a href="/irctc-kyc-form">IRCTC KYC FORM</a></li>
+                    <li><a href="/irctc-kyc-report">IRCTC KYC REPORT</a></li>
+                    <li><a href="http://aeps.digitalindiapayments.com/upload/irctc/emudra.pdf">EmudraForm</a></li>
+                    <li><a href="http://aeps.digitalindiapayments.com/upload/irctc/IRCTCRegistrationform.pdf">IRCTCRegistrationForm</a></li>
+                    <li><a href="https://www.irctc.co.in/eticketing/login"  target="blank">Book Ticket</a></li>
+                </ul>
+            </li>
+        </ul>
+        </div>
+      </div>
+    </div>
+
+
+  
+

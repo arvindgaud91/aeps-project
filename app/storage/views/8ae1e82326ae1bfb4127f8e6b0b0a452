@@ -1,0 +1,439 @@
+<?php use Acme\Auth\Auth; 
+
+$user = Auth::user();
+?>
+
+<?php $__env->startSection('content'); ?>
+<style>
+.label {
+	font-size: 11px;
+	border-radius: 0px;
+}
+.bc-report .row{
+	margin-bottom: 5px;
+    border-bottom: 1px dotted #ddd;
+    margin: 5px;
+    padding-bottom: 5px;
+    word-wrap: break-word;
+}
+.angular-with-newlines {
+  white-space: pre;
+}
+</style>
+<div ng-controller="reportsCtrl" id="page-wrapper">
+
+	<div class="row">
+		<div class="col-lg-12 panel panel-default panel-border-color panel-border-color-primary">
+			
+			<div class="row">
+	          <div class="col-sm-5">
+	            <h3> On-Boarding Payment Report</h3>
+	          </div>
+	          <div class="col-sm-7">
+	            <div class="pull-right" style="padding: 10px 0;">
+	                <strong>Inventory with Device : <?php echo $user->vendor->inventory_with_device; ?> ID's</strong> | <strong>Inventory without Device : <?php echo $user->vendor->inventory_without_device; ?> ID's</strong>
+	            </div>
+	          </div>
+	          <div class="clearfix"></div>
+	        </div>
+			<div class="">
+				<div class="">
+					<div class="row">
+					<?php /**
+					<form method="POST" action="@{{action}}">
+						<!-- <div ng-if="agentsStatus==active">
+							<form method="POST" action="/bc-agent-export">
+						</div>
+						<div ng-if="agentsStatus==approved">
+							<form method="POST" action="/bc-agent-approved-export">
+						</div>
+						<div ng-if="agentsStatus==rejected">
+							<form method="POST" action="/bc-agent-rejected-export">
+						</div> -->
+                    <div class='col-md-5'>
+                      <div class="form-group">
+                        <div class='input-group date' id='datetimepicker6'>
+                          <input type='text' class="form-control" placeholder="From Date" name="from_date" required=""/>
+                            <span class="input-group-addon">
+                              <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class='col-md-5'>
+                      <div class="form-group">
+                        <div class='input-group date' id='datetimepicker7'>
+                          <input type='text' class="form-control" placeholder="To Date" name="to_date" required=""/>
+                            <span class="input-group-addon">
+                              <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class='col-md-2'>
+                      <div class="form-group">
+                        <button type="submit" class="btn btn-primary">Export</button>
+                      </div>
+                    </div>
+                    </form>
+                    **/ ?>
+			          </div>
+					
+					<div class="row">
+						<div class="col-lg-12">
+
+                            <div class="row" style="margin-bottom: 5px;">
+                              <div class="col-md-3" ng-hide="display_status_input" id="status_input">
+                                <select style="height:35px;padding: 5px 10px;" ng-model="searchObj.queryString" class="form-control">
+                                    <option value="">Select Status</option>
+                                    <option value=" ">All</option>
+                                    <option value="0">Pending</option>
+                                    <option value="1">Approved</option>
+                                    <option value="2">Rejected</option>
+                                </select>
+                              </div>
+                              <div class="col-md-2">
+                                <button ng-click="searchTransactions(searchObj)" class="btn btn-primary">Search</button>
+                              </div>
+                              <div class="title col-md-3 pull-right"><!--Search--> <input type="text" style="width: 100%;padding: 5px 10px;border: 1px solid #ddd;" class="pull-right" ng-model="search" placeholder="Filter by name"></div>
+                            </div>
+                            <div class="clearfix"></div>
+                            
+							<div class="panel-table">
+								<div class="table-responsive" style="height: 430px;">
+								<table class="table table-striped table-bordered" ng-show="bcAgents.length>0">
+										<thead>
+											<tr>
+												<th>User ID</th>
+												<th>Name</th>
+												<th>ID Cost</th>
+												<th>Date</th>
+												<th>Device Type</th>
+												<th>Total Amount</th>
+												<th>Without Device</th>
+												<th>With Device</th>
+												<th>Reference No.</th>
+												<th>Mode of Transfer</th>
+												<th>Date of Deposit</th>
+												<?php if($user->vendor->type == 14 || $user->vendor->type == 7): ?>
+												<th>Remarks</th>
+												<?php endif; ?>
+												<?php if($user->vendor->type == 2 || $user->vendor->type == 3): ?>
+												<th>Remarks</th>
+												<?php endif; ?>
+												<?php if($user->vendor->type != 7): ?>
+												<th>Cluster Status</th>
+												<?php endif; ?>
+												<?php if($user->vendor->type != 7): ?>
+												<th>Account Status</th>
+												<?php endif; ?>
+												<?php if($user->vendor->type != 14 && $user->vendor->type != 3 && $user->vendor->type != 2): ?>
+												<th>Action</th>
+												<?php endif; ?>
+											</tr>
+										</thead>
+										<tbody class="no-border-x">
+											<tr ng-repeat="bcAgent in bcAgents |  filter:search">
+												<td>{{bcAgent.user_id}}</td>
+												<td>{{bcAgent.name}}</td>
+												<td>{{bcAgent.id_cost}}</td>
+												<td>{{bcAgent.created_at}}</td>
+												<td ng-if="bcAgent.device_type == 0">With Device</td>
+												<td ng-if="bcAgent.device_type == 1">Without Device</td>
+												<td>{{bcAgent.amount}}</td>
+												<td>{{bcAgent.no_of_agent_ids - bcAgent.id_with_device}}</td>
+												<td>{{bcAgent.id_with_device}}</td>
+												<td>{{bcAgent.ref_no}}</td>
+												<td ng-if="bcAgent.mode_of_transfer == 0">IMPS</td>
+												<td ng-if="bcAgent.mode_of_transfer == 1">NEFT</td>
+												<td ng-if="bcAgent.mode_of_transfer == 2">Cheque / DD</td>
+												<td ng-if="bcAgent.mode_of_transfer == 3">Netbanking</td>
+												<td>{{bcAgent.date_of_deposit}}</td>
+												<?php if($user->vendor->type == 14 || $user->vendor->type == 7): ?>
+												<td>{{bcAgent.ch_remarks}}</td>
+												<?php endif; ?>
+												<?php if($user->vendor->type == 2 || $user->vendor->type == 3): ?>
+												<td>{{bcAgent.acct_remarks}}</td>
+												<?php endif; ?>
+												<?php if($user->vendor->type != 7): ?>
+													<td ng-if="bcAgent.ch_status == 0"><span class="btn btn-xs btn-info">Pending</span></td>
+													<td ng-if="bcAgent.ch_status == 1"><span class="btn btn-xs btn-success">Approved</span></td>
+													<td ng-if="bcAgent.ch_status == 2"><span class="btn btn-xs btn-danger">Rejected</span></td>
+												<?php endif; ?>
+												<?php if($user->vendor->type != 7): ?>
+													<td ng-if="bcAgent.acct_status == 0"><span class="btn btn-xs btn-info">Pending</span></td>
+													<td ng-if="bcAgent.acct_status == 1"><span class="btn btn-xs btn-success">Approved</span></td>
+													<td ng-if="bcAgent.acct_status == 2"><span class="btn btn-xs btn-danger">Rejected</span></td>
+												<?php endif; ?>
+												<?php if($user->vendor->type != 14 && $user->vendor->type != 3 && $user->vendor->type != 2): ?>
+												<td ng-if="bcAgent.ch_status == 0"><button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal" ng-disabled="isDisabled" ng-click="update(bcAgent.id,bcAgent.user_id,1)">Approve</button> <button class="btn btn-danger btn-xs" data-toggle="modal" data-target="#myModal" ng-disabled="isDisabled" ng-click="update(bcAgent.id,bcAgent.user_id,2)">Reject</button></td>
+												<td ng-if="bcAgent.ch_status == 1"><span class="btn btn-xs btn-info">Approved</span></td>
+												<td ng-if="bcAgent.ch_status == 2"><span class="btn btn-xs btn-danger">rejected</span></td>
+												<?php endif; ?>
+											</tr>
+										</tbody>
+									</table>
+									<?php echo $bcAgentObj->appends(getAppendData())->links(); ?>
+
+									<?php
+					                    function getAppendData ()
+					                    {
+					                      return [];
+					                    }
+					                  ?>
+									<h5 ng-hide="bcAgents.length > 0">No BC Agents.</h5>
+								</div>
+							</div>
+							</div>
+							<!--Modal Code-->
+							<div class="modal fade" id="myModal" role="dialog">
+              					<div class="modal-dialog modal-sm">
+									<div class="modal-content">
+					                  <div class="modal-header" style="padding: 15px;">
+					                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+					                    <h4 class="modal-title" style="font-weight: bold;font-size: 24px;text-align: center;">Are you sure?</h4>
+					                  </div>
+					                  <div class="modal-body">
+					                   <form class="form-signin" name="creditRequestFrm" ng-submit="submit(creditRequest)" novalidate>
+					                    <div class="row">
+					                      <div class="col-md-12">
+					                        <div class="form-group">
+					                          <label class="control-label"><small>Remarks</small></label>
+					                          <textarea rows="4" cols="50" ng-model="remarks" name="remarks" class="form-control err" placeholder="ENTER REMARKS" ></textarea>
+					                          <input type="hidden" ng-model="id"  name="id" required>
+					                          <input type="hidden" ng-model="remarks"  name="remarks" >
+					                        </div>
+					                        <div class="form-group" style="text-align: center;">
+					                          <button type="submit" ng-disabled="isDisabled" class="btn btn-success" name="btn-credit-request"><small><i class="glyphicon glyphicon-ok"></i> Yes</small></button>
+					                           <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="glyphicon glyphicon-remove"></i> No</button>
+					                        </div>
+					                      </div>
+					                    </div>
+					                    <div class="clearfix"></div>
+					                  </form>
+					                  </div>
+					                </div>
+							<!--Modal Code-->
+						</div>
+					</div>
+
+					<!-- BC Agent Detail Pop-up -->
+				</div>
+			</div>
+			<div class="col-lg-4">
+				
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('javascript'); ?>
+
+<!-- jQuery -->
+<script src="/admin/jquery/dist/jquery.min.js"></script>
+<!-- Bootstrap Core JavaScript -->
+<script src="/admin/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- Metis Menu Plugin JavaScript -->
+<script src="/admin/metisMenu/dist/metisMenu.min.js"></script>
+<!-- Custom Theme JavaScript -->
+<script src="/admin/dist/js/sb-admin-2.js"></script>
+<script>
+	var bcAgents = <?php echo json_encode($bcAgents); ?>;
+
+</script>
+<script>
+var status;
+angular.module('DIPApp')
+.controller('reportsCtrl', ['$scope', '$http', '$filter', function ($scope, $http, $filter) {
+
+	$scope.bcAgents = bcAgents
+	$scope.update = update
+	$scope.submit = submit
+
+	console.log($scope.bcAgents)
+
+    //$scope.status=$scope.statusList[1]
+    $scope.searchTransactions = searchTransactions
+    function update (id,user_id,status) {
+        $scope.id=id
+        $scope.user_id=user_id
+        $scope.status=status
+    }
+
+    $scope.isDisabled = false;
+    function submit (creditRequest) {
+       //alert(id)
+        if ($scope.creditRequestFrm.$invalid) return
+        console.log($scope.creditRequestFrm)
+
+        req = Object.assign({id:$scope.id,remarks: $scope.remarks,status: $scope.status,user_id: $scope.user_id})
+		
+		console.log(req)
+		$scope.isDisabled = true;
+        $http.post(`/update-master-payment-details`, req)
+        .then(data => {
+          sweetAlert('Success', 'Details added successfully.', 'success')
+           	setTimeout(function () {
+               location.href = window.location.pathname
+            }, 2000)
+        }, function (err) {
+          //console.log(err.data)
+          if (err.data.code && err.data.code == 1) {
+            sweetAlert('Error', 'Missing data. Fill all the details please.', 'error')
+            return
+          }
+          if (err.data.code && err.data.code == 2) {
+            sweetAlert('Error', 'Insufficient Balance.', 'error')
+            return
+          }
+          if (err.status == 403 || err.status == 401) {
+            sweetAlert('Error', 'This request is unauthorized.', 'error')
+            return
+          }
+          sweetAlert('Error', 'Error. Try again.', 'error')
+        })
+    }
+
+
+
+	function fail (err) {
+		
+		sweetAlert('Error', 'Something went wrong', 'error')
+	}
+    
+    function searchTransactions (obj) {
+        // if (! obj  || ! obj.queryString) {
+        //   alert('Please select a type and fill the search term')
+        //   return false
+        // }
+        window.location.href = window.location.pathname + '?queryString=' + obj.queryString
+    }
+}])
+</script>
+<script>
+	var to_date_onchange;
+	var from_date_onchange;
+	// angular.module('SonaCoinApp')
+	// .controller('MappingReportCtrl', ['$scope', '$http', '$filter', function ($scope, $http, $filter) {
+	// 	window.s = $scope
+		
+	// 	$scope.settlement_data = settlement_data.map(formatAdminTransaction)
+	// 	$scope.from_date_onchange = from_date_onchange
+	// 	$scope.to_date_onchange = to_date_onchange
+	
+	// $scope.searchTransactions = searchTransactions
+	
+	// function formatAdminTransaction (tx) {
+		
+ //                //tx.status = statusDict[tx.status]
+ //                tx.created_at = new Date(tx.created_at)
+                
+ //                return tx
+ //            }
+            
+ //            $scope.selectForSettlement = selectForSettlement
+
+ //            function selectForSettlement(id,amount,vendor_id,status){
+            	
+ //            	sweetAlert({
+ //            		title: "Are you sure?",
+ //            		text: "You will not be able to revert this transaction!",
+ //            		type: "warning",
+ //            		showCancelButton: true,
+ //            		confirmButtonClass: "btn-danger",
+ //            		confirmButtonText: "Yes, send it!",
+ //            		cancelButtonText: "No, cancel it!",
+ //            		closeOnConfirm: true,
+ //            		closeOnCancel: true
+ //            	},
+ //            	function(isConfirm) {
+ //            		if (isConfirm) {
+ //            			req = Object.assign({id: id,amount:amount,status:status,vendor_id: vendor_id})
+            			
+ //            			$http.post(`/update-settlement`, req)
+ //            			.then(data => {
+	//           //oldToastr.success("Details added successfully.")
+	//           // sweetAlert('Success', 'Credit sent to the agent.', 'success')
+
+	//           location.href = '/settlement-request'
+	//       }, function (err) {
+	      	
+	//       	if (err.data.code && err.data.code == 1) {
+	//       		sweetAlert('Error', 'Missing data. Fill all the details please.', 'error')
+	//       		return
+	//       	}
+	//       	if (err.data.code && err.data.code == 2) {
+	//       		sweetAlert('Error', 'Insufficient Balance.', 'error')
+	//       		return
+	//       	}
+	//       	if (err.status == 403 || err.status == 401) {
+	//       		sweetAlert('Error', 'This request is unauthorized.', 'error')
+	//       		return
+	//       	}
+	//       	sweetAlert('Error', 'Error. Try again.', 'error')
+	//       })
+ //            		} else {
+ //            			sweetAlert("Cancelled", "Your request has been cancelled", "error");
+ //            		}
+ //            	});
+
+ //            }
+
+ //            function fail (err) {
+            	
+ //            	sweetAlert('Error', 'Something went wrong', 'error');
+ //            }
+ //            function searchTransactions (obj) {
+	//         //alert(4);
+	//         if (! from_date_onchange || ! to_date_onchange) {
+	//           alert('Please select a type and fill the search term')
+	//           return false
+	//         }
+
+	//         window.location.href = window.location.pathname + '?from=' + from_date_onchange + '&to=' + to_date_onchange
+	//       }
+ //        }])
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css" />
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>   
+
+
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js"></script>
+	<script type="text/javascript">
+		$(function () {
+			$('#datetimepicker6').datetimepicker({ format: 'DD-MM-YYYY',maxDate:new Date()});
+			$('#datetimepicker7').datetimepicker({
+				format: 'DD-MM-YYYY',
+
+				useCurrent: false 
+			});
+			$("#datetimepicker6").on("dp.change", function (e) { 
+				//alert($("#datetimepicker6").val());
+				from_date_onchange=$("#datetimepicker6").val();
+				$('#datetimepicker7').data("DateTimePicker");
+			});
+			$("#datetimepicker7").on("dp.change", function (e) {
+				//alert($("#datetimepicker7").val());
+				to_date_onchange=$("#datetimepicker7").val();
+
+				var from_date = moment($("input[name=from_date]").val(),"DD-MM-YYYY");
+				var to_date = moment($("input[name=to_date]").val(),"DD-MM-YYYY"); 
+
+				var days_difference = to_date.diff(from_date, 'days');
+				if(days_difference >30)
+				{
+
+					sweetAlert('Error', 'Date diffrence should be eqaual to 30 or less than 30', 'error');
+
+					$("input[name=to_date]").val("");
+				}
+
+			});
+		});
+	</script>
+    <?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

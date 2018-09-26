@@ -1,0 +1,480 @@
+<?php use Acme\Auth\Auth; ?>
+
+<?php $__env->startSection('content'); ?>
+
+<style>
+.agentRole li {
+    list-style-type: none;
+    float: left;
+    margin-right: 10px;
+}
+.agentRole li input {
+    margin: 0 5px;
+    vertical-align: middle;
+}
+</style>
+<div ng-controller="bcAgentuserCtrl"  id="page-wrapper">
+  <div class="row">
+    <div class="col-md-12">
+       <div>
+        <!-- Page Title -->
+        <h3>BC Agent Update user Form</h3>
+        <!-- /Page Title --> 
+        <!-- Page Content -->
+        <div class="tab-container ">
+          <div class="tab-content ">
+             <div class="panel panel-default panel-default panel-border-color panel-border-color-primary">
+                 <div class="panel-body">
+                     <form name="bcAgentProfileFrm" method="post" style="border-radius: 0px;" class="form-horizontal group-border-dashed" ng-submit="saveProfile(user)" novalidate>  
+
+                      <div class="row">
+                        <div class="col-sm-6">
+                          <div class="form-group">
+                            <label class="col-sm-4 control-label" >First Name <font color="red"> *</font></label>
+                            <div class="col-sm-8">
+                              <input type="text" ng-model="bc_agent_name" name="bc_agent_name" value="{{user.bcAgents.bc_agent_name}}" class="form-control" required>
+                              <p ng-show="bcAgentProfileFrm.$submitted && bcAgentProfileFrm.bc_agent_name.$invalid" class="err-mark">Please enter the BC Agent Name.</p>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-sm-6">
+                          <div class="form-group">
+                            <label class="col-sm-4 control-label" >Middle Name</label>
+                            <div class="col-sm-8">
+                              <input type="text" ng-model="middle_name" name="middle_name" class="form-control" value="{{user.bcAgents.middle_name}}" >
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div class="row">
+                        <div class="col-sm-6">
+                          <div class="form-group">
+                              <label class="col-sm-4 control-label" >Last Name </label>
+                              <div class="col-sm-8">
+                                <input type="text" ng-model="last_name" name="last_name" class="form-control" value="{{user.bcAgents.last_name}}">
+                              </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                          <div class="form-group">
+                            <label class="col-sm-4 control-label" >Establishment Name <font color="red"> *</font></label>
+                            <div class="col-sm-8">
+                              <input type="text" ng-model="establishment" name="establishment" value="{{user.bcAgents.establishment}}" class="form-control" required>
+                              <p ng-show="bcAgentProfileFrm.$submitted && bcAgentProfileFrm.establishment.$invalid" class="err-mark">Please enter the Establishment Name.</p>
+                            </div>
+                          </div>
+                        </div>
+                  </div>
+
+
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <div class="form-group">
+                        <label class="col-sm-2 control-label" >Outlet Address <font color="red"> *</font></label>
+                        <div class="col-sm-10">
+                          <input type="text" ng-model="address" name="address" class="form-control" value="{{user.bcAgents.address}}" required>
+                          <p ng-show="bcAgentProfileFrm.$submitted && bcAgentProfileFrm.address.$invalid" class="err-mark">Please enter the Address.</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label class="col-sm-4 control-label" >Area <font color="red"> *</font></label>
+                        <div class="col-sm-8">
+                          <input type="text" ng-model="area" name="area" class="form-control" value="{{user.bcAgents.area}}" required>
+                          <p ng-show="bcAgentProfileFrm.$submitted && bcAgentProfileFrm.area.$invalid" class="err-mark">Please enter the Area.</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label class="col-sm-4 control-label" >City <font color="red"> *</font></label>
+                        <div class="col-sm-8">
+                          <input type="text" ng-model="city" name="city" class="form-control" value="{{user.bcAgents.city}}" required>
+                          <p ng-show="bcAgentProfileFrm.$submitted && bcAgentProfileFrm.city.$invalid" class="err-mark">Please enter the City.</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label class="col-sm-4 control-label" >District <font color="red"> *</font></label>
+                        <div class="col-sm-8">
+                          <input type="text" ng-model="district" name="district" class="form-control" value="{{user.bcAgents.district}}" required>
+                          <p ng-show="bcAgentProfileFrm.$submitted && bcAgentProfileFrm.district.$invalid" class="err-mark">Please enter the District.</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label class="col-sm-4 control-label" >State <font color="red"> *</font></label>
+                        <div class="col-sm-8">
+                          <input type="text" ng-model="state" name="state" class="form-control" value="{{user.bcAgents.state}}" required>
+                          <p ng-show="bcAgentProfileFrm.$submitted && bcAgentProfileFrm.state.$invalid" class="err-mark">Please enter the state.</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label class="col-sm-4 control-label" >Pin Code <font color="red"> *</font></label>
+                        <div class="col-sm-8">
+                          <input type="text" ng-model="pincode" name="pincode" class="form-control" value="{{user.bcAgents.pincode}}" required>
+                          <p ng-show="bcAgentProfileFrm.$submitted && bcAgentProfileFrm.pincode.$invalid" class="err-mark">Please enter the Pin Code.</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label class="col-sm-4 control-label" >Mobile No. <font color="red"> *</font></label>
+                        <div class="col-sm-8">
+                          <input type="text" ng-model="mobile_number" name="mobile_number" class="form-control" value="{{user.bcAgents.mobile_number}}" required>
+                          <p ng-show="bcAgentProfileFrm.$submitted && bcAgentProfileFrm.mobile_number.$invalid" class="err-mark">Please enter the Mobile Number.</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label class="col-sm-4 control-label" >Email ID <font color="red"> *</font></label>
+                        <div class="col-sm-8">
+                          <input type="email" ng-model="email_address" name="email_address" class="form-control" value="{{user.bcAgents.email_address}}" required ischar>
+                          <p ng-show="bcAgentProfileFrm.$submitted && bcAgentProfileFrm.email_address.$invalid" class="err-mark">Please enter the Email ID.</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label class="col-sm-4 control-label" >Date of Birth <font color="red"> *</font></label>
+                        <div class="col-sm-8">
+    
+                          <input type="text" class="form-control ng-pristine ng-invalid ng-invalid-required ng-touched" ng-model="date_of_birth" name="date_of_birth" id="datetimepicker6" value={{user.bcAgents.date_of_birth}} required >
+                          <!-- <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                          </span> -->
+                          <p ng-show="bcAgentProfileFrm.$submitted && bcAgentProfileFrm.date_of_birth.$invalid" class="err-mark">Please enter Date of Birth.</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label class="col-sm-4 control-label" >PAN No. </label>
+                        <div class="col-sm-8">
+                          <input type="text" ng-model="pancard" name="pancard" class="form-control" value="{{user.bcAgents.pancard}}" required>
+                          <p ng-show="bcAgentProfileFrm.$submitted && bcAgentProfileFrm.pancard.$invalid" class="err-mark">Please enter the PAN No.</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <div class="form-group">
+                        <label class="col-sm-2 control-label" >Resedential Address</label>
+                        <div class="col-sm-10">
+                          <input type="text" ng-model="laddress" name="laddress" class="form-control" value="{{user.bcAgents.laddress}}" required>
+                          <p ng-show="bcAgentProfileFrm.$submitted && bcAgentProfileFrm.laddress.$invalid" class="err-mark">Please enter the Address.</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label class="col-sm-4 control-label" >Resedential Area <font color="red"> *</font></label>
+                        <div class="col-sm-8">
+                          <input type="text" ng-model="larea" name="larea" class="form-control" value="{{user.bcAgents.larea}}">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label class="col-sm-4 control-label" >Resedential City <font color="red"> *</font></label>
+                        <div class="col-sm-8">
+                          <input type="text" ng-model="lcity" name="lcity" class="form-control" value="{{user.bcAgents.lcity}}">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label class="col-sm-4 control-label" >Resedential District <font color="red"> *</font></label>
+                        <div class="col-sm-8">
+                          <input type="text" ng-model="ldistrict" name="ldistrict" class="form-control" value="{{user.bcAgents.ldistrict}}">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label class="col-sm-4 control-label" >Resedential State <font color="red"> *</font></label>
+                        <div class="col-sm-8">
+                          <input type="text" ng-model="lstate" name="lstate" class="form-control" value="{{user.bcAgents.lstate}}">
+                        </div>
+                      </div> 
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label class="col-sm-4 control-label" >Resedential Pin Code <font color="red"> *</font></label>
+                        <div class="col-sm-8">
+                          <input type="text" ng-model="lpincode" name="lpincode" class="form-control" value="{{user.bcAgents.lpincode}}">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                          <label class="col-sm-4 control-label" >Aadhar card <font color="red"> *</font></label>
+                          <div class="col-sm-8">
+                            <input type="file" name="addressproofurl" file-model="myfile2" required>
+                            <p ng-show="bcAgentFrm.$submitted && bcAgentFrm.addressproofurl.$invalid" class="err-mark">Please upload Aadhar Card. </p>
+                          </div>
+                          <div class="clearfix"></div>
+                          <small style="padding-left:15px;display: block;color: #999;">The filesize should not be greater than 2MB!!</small>
+                        </div>
+                      </div>
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                          <label class="col-sm-4 control-label" >Pan Card <font color="red"> *</font></label>
+                          <div class="col-sm-8">
+                            <input type="file" name="idproofurl" file-model="myfile3" required>
+                            <p ng-show="bcAgentFrm.$submitted && bcAgentFrm.idproofurl.$invalid" class="err-mark">Please upload Pan Card.</p>
+                          </div>
+                          <div class="clearfix"></div>
+                          <small style="padding-left:15px;display: block;color: #999;">The filesize should not be greater than 2MB!!</small>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-sm-4">
+                          <div class="form-group">
+                            <label class="col-sm-4 control-label" >Cancelled Cheque <font color="red"> *</font></label>
+                            <div class="col-sm-8">
+                              <input type="file" name="cancelled_cheque_url" file-model="myfile4" required>
+                              <p ng-show="bcAgentFrm.$submitted && bcAgentFrm.cancelled_cheque_url.$invalid" class="err-mark">Please upload Cancelled Cheque.</p>
+                            </div>
+                            <div class="clearfix"></div>
+                            <small style="padding-left:15px;display: block;color: #999;">The filesize should not be greater than 2MB!!</small>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                          <label class="col-sm-4 control-label" >Stamp Paper <font color="red"> *</font></label>
+                          <div class="col-sm-8">
+                            <input type="file" name="stamp_paper_url" file-model="myfile5" required>
+                            <p ng-show="bcAgentFrm.$submitted && bcAgentFrm.stamp_paper_url.$invalid" class="err-mark">Please upload Stamp Paper. </p>
+                          </div>
+                          <div class="clearfix"></div>
+                          <small style="padding-left:15px;display: block;color: #999;">The filesize should not be greater than 2MB!!</small>
+                        </div>
+                      </div>
+                      <div class="col-sm-4">
+                        <div class="form-group">
+
+                          <label class="col-sm-4 control-label" >Agreeement Copy <font color="red"> *</font></label>
+                          <div class="col-sm-8">
+                            <input type="file" name="agreeement_copy_url" file-model="myfile6" required>
+                            <p ng-show="bcAgentFrm.$submitted && bcAgentFrm.agreeement_copy_url.$invalid" class="err-mark">Please upload Agreeement Copy.</p>
+                          </div>
+                          <div class="clearfix"></div>
+                          <small style="padding-left:15px;display: block;color: #999;">The filesize should not be greater than 2MB!!</small>
+                        </div>
+                      </div>
+                      <div class="col-sm-4">
+                        <div class="form-group">
+
+                          <label class="col-sm-4 control-label" >Application Form <font color="red"> *</font></label>
+                          <div class="col-sm-8">
+                            <input type="file" name="application_form" file-model="myfile7" required>
+                            <p ng-show="bcAgentFrm.$submitted && bcAgentFrm.application_form.$invalid" class="err-mark">Please upload Agreeement Copy.</p>
+                          </div>
+                          <div class="clearfix"></div>
+                          <small style="padding-left:15px;display: block;color: #999;">The filesize should not be greater than 2MB!!</small>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                          <label class="col-sm-4 control-label" >Commission Page <font color="red"> *</font></label>
+                          <div class="col-sm-8">
+                            <input type="file" name="commission_page" file-model="myfile8" required>
+                            <p ng-show="bcAgentFrm.$submitted && bcAgentFrm.commission_page.$invalid" class="err-mark">Please upload Commission Page. </p>
+                          </div>
+                          <div class="clearfix"></div>
+                          <small style="padding-left:15px;display: block;color: #999;">The filesize should not be greater than 2MB!!</small>
+                        </div>
+                      </div>
+                      <div align="center" class="col-sm-4">
+                        <button type="submit" class="btn btn-primary btn-lg" ng-click="" style="width: 50%">Submit</button>
+                      </div> 
+                    </div>
+                   
+                     </form>
+                    <!-- /Form -->
+                   </div>
+                 </div>
+             </div>
+          </div>
+        </div>
+        <!-- /Page Content -->
+       </div>
+    </div>
+  </div>
+
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('javascript'); ?>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js"></script>
+<script>
+var dob_onchange;
+var bcAgents = <?php echo json_encode($bcAgents); ?>
+
+
+  angular.module('DIPApp')
+  .controller('bcAgentuserCtrl', ['$scope', '$http','Upload','fileUpload', function ($scope, $http,Upload,fileUpload) {
+
+  window.s = $scope
+
+      $scope.bcAgents = bcAgents
+      //console.log($scope.bcAgents)
+
+      $scope.bc_agent_name=bcAgents.bc_agent_name
+      $scope.middle_name=bcAgents.middle_name
+      $scope.last_name=bcAgents.last_name
+      $scope.email_address=bcAgents.email_address
+      $scope.address=bcAgents.address
+      $scope.area=bcAgents.area
+      $scope.city=bcAgents.city
+      $scope.district=bcAgents.district
+      $scope.state=bcAgents.state
+      $scope.pincode=bcAgents.pincode
+      if(bcAgents.date_of_birth === '0000-00-00') 
+      {
+            $scope.date_of_birth=''
+      } 
+      else 
+      {
+            $scope.date_of_birth=bcAgents.date_of_birth
+      }
+      $scope.pancard=bcAgents.pancard
+      $scope.addressproofurl=bcAgents.addressproofurl
+      $scope.idproofurl=bcAgents.idproofurl
+      $scope.profilepicurl=bcAgents.profilepicurl
+      $scope.imei_no=bcAgents.imei_no
+      $scope.establishment=bcAgents.establishment
+      $scope.mobile_number=bcAgents.mobile_number
+    $('#datetimepicker6').datetimepicker({ format: 'YYYY-MM-DD',maxDate:new Date()});
+    $("#datetimepicker6").on("dp.change", function (e) { 
+      //alert($("#datetimepicker6").val());
+      $scope.date_of_birth=$("#datetimepicker6").val();
+    });
+
+      $scope.saveProfile=saveProfile;
+
+      function saveProfile (vendorObj) {
+
+        if ($scope.bcAgentProfileFrm.$valid)
+        {
+          console.log($scope.bcAgentProfileFrm)
+            //$scope.date_of_birth=dob_onchange
+            var file2=$scope.myfile2;
+            var file3=$scope.myfile3;
+            var file4=$scope.myfile4;
+            var file5=$scope.myfile5;
+            var file6=$scope.myfile6;
+            var file7=$scope.myfile7;
+            var file8=$scope.myfile8;
+
+             var filter1={
+               bc_agent_name:$scope.bc_agent_name,
+               middle_name:$scope.middle_name,
+               last_name:$scope.last_name,
+               address:$scope.address,
+               area:$scope.area,
+               city:$scope.city,
+               district:$scope.district,
+               state:$scope.state,
+               pincode:$scope.pincode,
+               mobile_number:$scope.mobile_number,
+               date_of_birth:$scope.date_of_birth,
+               email_address:$scope.email_address,
+               pancard:$scope.pancard,
+               establishment:$scope.establishment,
+               file2:$scope.myfile2,
+               file3:$scope.myfile3,
+               file4:$scope.myfile4,
+               file5:$scope.myfile5,
+               file6:$scope.myfile6,
+               file7:$scope.myfile7,
+               file8:$scope.myfile8
+            }
+
+          console.log(filter1)
+             var saveProfile=Upload.upload({
+              url:'/users/'+bcAgents.id+'/actions/profile/registration/agreementupdate',
+              method:"post",
+              data:filter1,
+             });
+
+             saveProfile.then(function(response)
+             {
+                console.log(response);
+                if(response.status==200)
+                {
+                   sweetAlert('Success', 'BC Agent Form Updated Successfully!!.', 'success')
+                   setTimeout(function () {
+                    location.reload();
+                   }, 1500)
+
+                }else{
+                sweetAlert('Error', 'Something Is Wrong.', 'error')
+                }
+            },
+            fail) 
+        }else
+        {
+          sweetAlert('Error', 'Something Is Wrong.', 'error')
+        }
+
+       
+      }
+
+      function fail (err) {
+          console.log(err.status)
+          if(err.status==401){
+            sweetAlert('Error', 'Please upload Address Proof file!', 'error')
+          }else if(err.status==402){
+            sweetAlert('Error', 'Please upload ID Proof file!', 'error')
+          }else{
+            sweetAlert('Error', 'Something Is Wrong.', 'error')
+          }
+      }
+}])
+</script>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

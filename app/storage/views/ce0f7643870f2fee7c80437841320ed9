@@ -1,0 +1,216 @@
+<?php use Acme\Auth\Auth; 
+$user = Auth::user();
+?>
+
+<?php $__env->startSection('content'); ?>
+
+<div ng-controller="mposRegistrationCtrl"  id="page-wrapper" style="min-height: 226px;" class="head-weight">
+  <div class="row">
+    <center><h3 ng-hide="count == 0">Form Already Submitted !!!</h3></center>
+    <div ng-hide="count != 0" class="col-md-12">
+      <div class="panel-heading panel-heading-divider" style = "font-size: 15px;">
+                  <b style="color: red;">Terms and Conditions</b>
+                  <br>
+                  <b>
+                    1.Payment of INR 4500 to be paid to DIPL + (500 charges against registration which will be used to deduct the commissions to DIPL) would be deducted from aeps wallet on registration.  
+                  <br>
+                    2.Please note for mpos ID request processed & payment deducted from wallet is non-refundable.
+                  <br></b>
+      </div>
+       <div class="panel panel-default">
+        <!-- Page Title -->
+        <!-- /Page Title -->
+        <div class="panel-heading">MPOS KYC Registration Form</div>
+        <div class="tab-container ">
+          <div class="tab-content ">
+             <div class="panel1 panel-default panel-default panel-border-color panel-border-color-primary">
+                 <div class="panel-body">
+                     <form name="mposFrm" method="post" style="border-radius: 0px;" class="form-horizontal group-border-dashed" ng-submit="mposKyc(onboarding)" novalidate>
+                      <div class="row">
+                        <div class="col-sm-6">
+                          <div class="form-group">
+                            <label class="col-sm-4 control-label" >Name as per pancard <font color="red"> *</font></label>
+                            <div class="col-sm-8">
+                              <input value="" type="text" ng-model="name" name="name" class="form-control err" placeholder="Enter  Name as per pancard" required >
+                              <p ng-show="mposFrm.$submitted && mposFrm.name.$invalid" class="err-mark">Please enter Name.</p>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-sm-6">
+                          <div class="form-group">
+                              <label class="col-sm-4 control-label" >Pan No <font color="red"> *</font></label>
+                              <div class="col-sm-8">
+                                <input type="text" ng-model="pan_no" name="pan_no" class="form-control err" placeholder="Enter Pan Number" maxlength="10" ispanno required>
+                                <p ng-show="mposFrm.$submitted && mposFrm.pan_no.$invalid" class="err-mark">Please enter the PAN Number.</p>
+                              </div>
+                            </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                          <label class="col-sm-4 control-label" >Aadhaar Card <font color="red"> *</font></label>
+                          <div class="col-sm-8">
+                            <input type="file" name="aadhaarcard" file-model="myfile1" required>
+                            <p ng-show="mposFrm.$submitted && mposFrm.aadhaarcard.$invalid" class="err-mark">Please select upload Aadhaar Card. </p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-4">
+                        <div class="form-group">
+
+                          <label class="col-sm-4 control-label" >Pan Card <font color="red"> *</font></label>
+                          <div class="col-sm-8">
+                            <input type="file" name="pancard" file-model="myfile2" required>
+                            <p ng-show="mposFrm.$submitted && mposFrm.pancard.$invalid" class="err-mark">Please select upload Pan Card.</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-4">
+                        <div class="form-group">
+
+                          <label class="col-sm-4 control-label" >Cancel Cheque <font color="red"> *</font></label>
+                          <div class="col-sm-8">
+                            <input type="file" name="cancelcheque" file-model="myfile3" required>
+                            <p ng-show="mposFrm.$submitted && mposFrm.cancelcheque.$invalid" class="err-mark">Please select upload Cancel Cheque.</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                          <label class="col-sm-4 control-label" >Business Add Proof <font color="red"> *</font></label>
+                          <div class="col-sm-8">
+                            <input type="file" name="business_add_proof" file-model="myfile1" required>
+                            <p ng-show="mposFrm.$submitted && mposFrm.business_add_proof.$invalid" class="err-mark">Please select upload Business Add Proof. </p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-4">
+                        <div class="form-group">
+
+                          <label class="col-sm-4 control-label" >Company PAN Card <font color="red"> *</font></label>
+                          <div class="col-sm-8">
+                            <input type="file" name="company_pan_card" file-model="myfile2" required>
+                            <p ng-show="mposFrm.$submitted && mposFrm.company_pan_card.$invalid" class="err-mark">Please select upload Company PAN Card.</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-4">
+                        <div class="form-group">
+
+                          <label class="col-sm-4 control-label" >Certificate of Incorporation <font color="red"> *</font></label>
+                          <div class="col-sm-8">
+                            <input type="file" name="certificate_of_incorporation" file-model="myfile3" required>
+                            <p ng-show="mposFrm.$submitted && mposFrm.certificate_of_incorporation.$invalid" class="err-mark">Please select upload Certificate of Incorporation.</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  <div class="col-sm-5"></div>
+                  <div class="col-sm-2">
+                    <button type="submit" class="btn btn-primary btn" ng-click="" ng-disabled="isDisabled" style="width: 100%">Submit</button>
+                  </div> 
+                  
+                     </form>
+                    <!-- /Form -->
+                   </div>
+                 </div>
+             </div>
+          </div>
+        </div>
+        <!-- /Page Content -->
+       </div>
+    </div>
+  </div>
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('javascript'); ?>
+<script>
+var count = <?php echo json_encode($count); ?>; 
+angular.module('DIPApp')
+
+  .controller('mposRegistrationCtrl', ['$scope', '$http','Upload','fileUpload', function ($scope, $http,Upload,fileUpload) {
+  window.s = $scope
+  $scope.count=count;
+  $scope.mposKyc=mposKyc;
+      function mposKyc(onboarding)
+      {
+        if ($scope.mposFrm.$invalid) return
+        sweetAlert({
+            title: "Are you sure?",
+            text: "You will not be able to revert this request!",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonClass: "btn-danger",
+            confirmButtonText: "Yes, send it!",
+            cancelButtonText: "No, cancel it!",
+            closeOnConfirm: true,
+            closeOnCancel: true
+        },
+        function(isConfirm) {
+            $scope.isHidden=true
+            if (isConfirm) {
+        $scope.isDisabled = true;
+        var filter1={
+           name:$scope.name,
+           pan_no:$scope.pan_no,
+           mobile_no:$scope.mobile_no,
+           email_address:$scope.email_address,
+           address:$scope.address,
+           city:$scope.city,
+           state:$scope.state,
+           pincode:$scope.pincode
+        }
+          console.log(filter1)
+
+           var mposKyc=Upload.upload({
+            url:'/post-mpos-kyc-form',
+            method:"post",
+            data:filter1,
+           });
+
+           mposKyc.then(function(response)
+           {
+              if(response.status==200)
+              {
+                sweetAlert('Success', 'mpos Form Submitted Successfully.', 'success')
+                setTimeout(function () {
+                  window.location.href = '/mpos-kyc-report'
+                }, 1500)
+              }
+              else{
+                sweetAlert('Error', 'Something Is Wrong.', 'error')
+              }
+          },
+          fail)
+          } else {
+                sweetAlert("Cancelled", "Your request has been cancelled", "error");
+            }
+        });
+      }
+      function fail (err) {
+          if(err.status==422){
+            sweetAlert('Error', 'Insufficient balance', 'error')
+          }
+          else{
+            sweetAlert('Error', 'Something Is Wrong.', 'error')
+          }
+      }  
+}])
+</script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $('#datetimepicker6').datetimepicker({ format: 'YYYY-MM-DD',maxDate:new Date()});
+        $("#datetimepicker6").on("dp.change", function (e) { 
+      //alert($("#datetimepicker6").val());
+      dob_onchange=$("#datetimepicker6").val();
+    });
+    });
+</script>
+<?php $__env->stopSection(); ?>  
+<?php echo $__env->make('layouts.master_mpos', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
